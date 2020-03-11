@@ -5,6 +5,9 @@ LOCAL_LIB_DIR = ../lib/$(BUILD_PLATFORM)
 LOCAL_BIN_DIR = ../bin/$(BUILD_PLATFORM)
 LOCAL_OBJ_DIR = ../obj/$(BUILD_PLATFORM)
 LOCAL_INCLUDE_DIR = ../include
+XTENSOR_INCLUDE_DIR = /home/tjguitat2025/xtensor/include/xtensor
+CLING_INCLUDE_DIR = /home/tjguitat2025/miniconda3/pkgs/xtl-0.6.12-hc9558a2_0/include
+CLING_XTL_INCLUDE_DIR = /home/tjguitat2025/miniconda3/pkgs/xtl-0.6.12-hc9558a2_0/include/xtl
 PROJECT_LIB_DIR = ../../lib/$(BUILD_PLATFORM)
 PROJECT_INCLUDE_DIR = ../../include
 
@@ -62,7 +65,10 @@ HEADERS = $(LOCAL_INCLUDE_DIR)/DataFrame/Vectors/HeteroVector.h \
           $(LOCAL_INCLUDE_DIR)/DataFrame/MMap/MMapFile.h \
           $(LOCAL_INCLUDE_DIR)/DataFrame/MMap/MMapSharedMem.h \
           $(LOCAL_INCLUDE_DIR)/DataFrame/MMap/ObjectVector.h \
-          $(LOCAL_INCLUDE_DIR)/DataFrame/MMap/ObjectVector.tcc
+          $(LOCAL_INCLUDE_DIR)/DataFrame/MMap/ObjectVector.tcc \
+          $(XTENSOR_INCLUDE_DIR)/xarray.hpp \
+          $(CLING_INCLUDE_DIR)/xtl/xsequence.hpp \
+          $(CLING_XTL_INCLUDE_DIR)/xsequence.hpp
 
 LIB_NAME = DataFrame
 TARGET_LIB = $(LOCAL_LIB_DIR)/lib$(LIB_NAME).a
@@ -84,7 +90,7 @@ TARGETS += $(TARGET_LIB) \
 LFLAGS += -Bstatic -L$(LOCAL_LIB_DIR) -L$(PROJECT_LIB_DIR)
 
 LIBS = $(LFLAGS) -l$(LIB_NAME) $(PLATFORM_LIBS)
-INCLUDES += -I. -I$(LOCAL_INCLUDE_DIR) -I$(PROJECT_INCLUDE_DIR)
+INCLUDES += -I. -I$(LOCAL_INCLUDE_DIR) -I$(XTENSOR_INCLUDE_DIR) -I$(CLING_INCLUDE_DIR) -I$(PROJECT_INCLUDE_DIR)
 DEFINES = -D_REENTRANT \
           -DP_THREADS -D_POSIX_PTHREAD_SEMANTICS -DDMS_$(BUILD_DEFINE)__
 
